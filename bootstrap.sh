@@ -9,7 +9,7 @@ echo 'Install base packages'
 sudo apt-get install -y ia32-libs texlive ghostscript imagemagick vsftpd &> /dev/null
 
 echo 'Install PHP 7.0'
-sudo apt-get install -y php7.0 libapache2-mod-php7.0 &> /dev/null
+sudo apt-get install -y php7.0 libapache2-mod-php7.0 php7.0-ldap php7.0-zip php7.0-imap &> /dev/null
 
 echo 'Log permissions'
 sudo chmod -R 777 /var/log
