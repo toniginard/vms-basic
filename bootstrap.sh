@@ -25,6 +25,30 @@ echo 'Set Timezone'
 sudo echo "Europe/Madrid" | sudo tee /etc/timezone  &> /dev/null
 sudo dpkg-reconfigure -f noninteractive tzdata &> /dev/null
 
+echo 'PHP Configuration'
+sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/7.0/apache2/php.ini
+sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/apache2/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.0/apache2/php.ini
+sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/apache2/php.ini
+sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/7.0/apache2/php.ini
+sudo sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.0/apache2/php.ini
+sudo sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.0/apache2/php.ini
+sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/7.0/apache2/php.ini
+sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/7.0/apache2/php.ini
+sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/7.0/apache2/php.ini
+
+sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/7.0/cli/php.ini
+sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/cli/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.0/cli/php.ini
+sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/cli/php.ini
+sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/7.0/cli/php.ini
+# Next line is commented on cli to allow composer install
+#sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/7.0/cli/php.ini
+sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/7.0/cli/php.ini
+sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/7.0/cli/php.ini
+
+sudo service apache2 restart
+
 echo 'Increase swapsize'
 # size of swapfile in megabytes
 swapsize=2000
