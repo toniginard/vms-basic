@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 
-echo 'Update packages'
+echo 'Add repository ondrej/php'
+sudo add-apt-repository ppa:ondrej/php
 
+echo 'Update packages'
 sudo apt-get update &> /dev/null
 sudo apt-get autoremove -y  &> /dev/null
 
 echo 'Install base packages'
 sudo apt-get install -y ia32-libs texlive ghostscript imagemagick vsftpd &> /dev/null
 
-echo 'Install PHP 7.0'
-sudo apt-get install -y php7.0 libapache2-mod-php7.0 php7.0-ldap php7.0-zip php7.0-imap php7.0-intl &> /dev/null
+echo 'Install PHP 7.1'
+sudo apt-get install -y php7.1 libapache2-mod-php7.1 php7.1-ldap php7.1-zip php7.1-imap php7.1-intl php7.1-mbstring php7.1-mysql php7.1-gettext php7.1-mcrypt php7.1-xml php7.1-pgsql php7.1-gd &> /dev/null
 
 echo 'Log permissions'
 sudo chmod -R 777 /var/log
@@ -26,26 +28,26 @@ sudo echo "Europe/Madrid" | sudo tee /etc/timezone  &> /dev/null
 sudo dpkg-reconfigure -f noninteractive tzdata &> /dev/null
 
 echo 'PHP Configuration'
-sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/7.0/apache2/php.ini
-sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/apache2/php.ini
-sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.0/apache2/php.ini
-sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/apache2/php.ini
-sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/7.0/apache2/php.ini
-sudo sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.0/apache2/php.ini
-sudo sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.0/apache2/php.ini
-sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/7.0/apache2/php.ini
-sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/7.0/apache2/php.ini
-sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/7.0/apache2/php.ini
+sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/7.1/apache2/php.ini
+sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/apache2/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.1/apache2/php.ini
+sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/apache2/php.ini
+sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/7.1/apache2/php.ini
+sudo sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.1/apache2/php.ini
+sudo sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.1/apache2/php.ini
+sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/7.1/apache2/php.ini
+sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/7.1/apache2/php.ini
+sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/7.1/apache2/php.ini
 
-sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/7.0/cli/php.ini
-sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/cli/php.ini
-sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.0/cli/php.ini
-sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/cli/php.ini
-sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/7.0/cli/php.ini
+sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/7.1/cli/php.ini
+sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/cli/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.1/cli/php.ini
+sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/cli/php.ini
+sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/7.1/cli/php.ini
 # Next line is commented on cli to allow composer install
-#sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/7.0/cli/php.ini
-sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/7.0/cli/php.ini
-sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/7.0/cli/php.ini
+#sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/7.1/cli/php.ini
+sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/7.1/cli/php.ini
+sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/7.1/cli/php.ini
 
 sudo service apache2 restart
 
