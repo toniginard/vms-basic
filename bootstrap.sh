@@ -11,7 +11,7 @@ echo 'Install base packages'
 sudo apt-get install -y ia32-libs texlive ghostscript imagemagick vsftpd &> /dev/null
 
 echo 'Install PHP 7.1'
-sudo apt-get install -y php7.1 libapache2-mod-php7.1 php7.1-ldap php7.1-zip php7.1-imap php7.1-intl php7.1-mbstring php7.1-mysql php7.1-gettext php7.1-mcrypt php7.1-xml php7.1-pgsql php7.1-gd &> /dev/null
+sudo apt-get install -y php7.1 libapache2-mod-php7.1 php7.1-ldap php7.1-zip php7.1-imap php7.1-intl php7.1-mbstring php7.1-mysql php7.1-gettext php7.1-mcrypt php7.1-xml php7.1-pgsql php7.1-gd php7.1-xmlrpc php7.1-curl php7.1-soap php7.1-json &> /dev/null
 
 echo 'Log permissions'
 sudo chmod -R 777 /var/log
