@@ -8,7 +8,7 @@ sudo apt-get update &> /dev/null
 sudo apt-get autoremove -y  &> /dev/null
 
 echo 'Install base packages'
-sudo apt-get install -y ghostscript imagemagick vsftpd &> /dev/null
+sudo apt-get install -y ghostscript imagemagick vsftpd openssl &> /dev/null
 
 echo 'Install PHP 7.2'
 sudo apt-get install -y libapache2-mod-php7.2 php7.2-common php7.2-ldap php7.2-zip php7.2-imap php7.2-intl php7.2-mbstring php7.2-mysql php7.2-pgsql php7.2-xml php7.2-pgsql php7.2-gd php7.2-xmlrpc php7.2-curl php7.2-soap php7.2-json php7.2-gd php7.2-sqlite3 php-memcache php-imagick php-gettext &> /dev/null
