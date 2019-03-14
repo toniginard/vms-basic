@@ -16,7 +16,7 @@ echo 'Install base packages'
 sudo apt-get install -y ghostscript imagemagick vsftpd openssl &> /dev/null
 
 echo 'Install PHP 7.3'
-sudo apt-get install -y libapache2-mod-php7.3 php7.3-common php7.3-ldap php7.3-zip php7.3-imap php7.3-intl php7.3-mbstring php7.3-mysql php7.3-pgsql php7.3-xml php7.3-gd php7.3-xmlrpc php7.3-curl php7.3-soap php7.3-json php7.3-gd php7.3-sqlite3 php-memcache php-imagick php-gettext &> /dev/null
+sudo apt-get install -y libapache2-mod-php7.3 php7.3-common php7.3-ldap php7.3-zip php7.3-imap php7.3-intl php7.3-mbstring php7.3-mysql php7.3-pgsql php7.3-xml php7.3-gd php7.3-xmlrpc php7.3-curl php7.3-soap php7.3-json php7.3-sqlite3 php-memcache php-imagick php-gettext &> /dev/null
 
 echo 'Log permissions'
 sudo chmod -R 777 /var/log
