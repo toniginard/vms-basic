@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", "2048"]
     v.customize ["modifyvm", :id, "--cpus", "4"]
-    v.customize ["modifyvm", :id, "--name", "PHP 8.1"]
+    v.customize ["modifyvm", :id, "--name", "PHP 8.2"]
     v.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
