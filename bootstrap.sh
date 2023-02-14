@@ -13,7 +13,7 @@ sudo apt-get update &> /dev/null
 sudo apt-get autoremove -y  &> /dev/null
 
 echo 'Install base packages'
-sudo apt-get install -y ghostscript imagemagick vsftpd openssl &> /dev/null
+sudo apt-get install -y ghostscript imagemagick vsftpd openssl zip unzip &> /dev/null
 
 echo 'Install PHP 8.2'
 sudo apt-get install -y libapache2-mod-php8.2 php8.2-common php8.2-ldap php8.2-zip php8.2-imap php8.2-intl php8.2-mbstring php8.2-mysql php8.2-pgsql php8.2-xml php8.2-gd php8.2-xmlrpc php8.2-curl php8.2-soap php8.2-sqlite3 php-imagick php8.2-gettext &> /dev/null
@@ -55,7 +55,16 @@ sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_
 sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/8.2/cli/php.ini
 
 sudo sed -i "s/www-data/ubuntu/g" /etc/apache2/envvars
-sudo sed -i "s/www-data/ubuntu/g" /etc/apache2/envvars
+
+# Log
+sudo sed -i "s/create 640.*/create 777 vagrant vagrant/" /etc/logrotate.d/apache2
+sudo chmod -R 777 /var/log/apache2/
+sudo chown -R vagrant:vagrant /var/log/apache2/
+
+# Make Vagrant execute apache
+sudo sed -i "s/export APACHE_RUN_USER=.*/export APACHE_RUN_USER=vagrant/" /etc/apache2/envvars
+sudo chown -R vagrant /var/lock/apache2
+sudo adduser vagrant www-data
 
 sudo service apache2 restart
 
