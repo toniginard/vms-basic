@@ -20,7 +20,7 @@ sudo locale-gen ca_ES  &> /dev/null
 sudo locale-gen ca_ES.UTF-8  &> /dev/null
 sudo locale-gen es_ES  &> /dev/null
 sudo locale-gen es_ES.UTF-8  &> /dev/null
-sudo dpkg-reconfigure locales &> /dev/null
+sudo dpkg-reconfigure -f noninteractive locales &> /dev/null
 
 echo 'Set Timezone'
 sudo echo "Europe/Madrid" | sudo tee /etc/timezone  &> /dev/null
@@ -51,7 +51,19 @@ sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/ph
 sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/5.6/cli/php.ini
 sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/5.6/cli/php.ini
 
-sudo service apache2 restart &> /dev/null
+sudo sed -i "s/www-data/ubuntu/g" /etc/apache2/envvars
+
+# Log
+sudo sed -i "s/create 640.*/create 777 vagrant vagrant/" /etc/logrotate.d/apache2
+sudo chmod -R 777 /var/log/apache2/
+sudo chown -R vagrant:vagrant /var/log/apache2/
+
+# Make Vagrant execute apache
+sudo sed -i "s/export APACHE_RUN_USER=.*/export APACHE_RUN_USER=vagrant/" /etc/apache2/envvars
+sudo chown -R vagrant /var/lock/apache2
+sudo adduser vagrant www-data
+
+sudo service apache2 restart
 
 echo 'Increase swapsize'
 # size of swapfile in megabytes
