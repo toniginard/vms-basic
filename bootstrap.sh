@@ -15,8 +15,8 @@ sudo apt-get autoremove -y  &> /dev/null
 echo 'Install base packages'
 sudo apt-get install -y ghostscript imagemagick vsftpd openssl &> /dev/null
 
-echo 'Install PHP 7.4'
-sudo apt-get install -y libapache2-mod-php7.4 php7.4-common php7.4-ldap php7.4-zip php7.4-imap php7.4-intl php7.4-mbstring php7.4-mysql php7.4-pgsql php7.4-xml php7.4-gd php7.4-xmlrpc php7.4-curl php7.4-soap php7.4-json php7.4-sqlite3 php7.4-memcache php7.4-redis php7.4-imagick &> /dev/null
+echo 'Install PHP 8.1'
+sudo apt-get install -y libapache2-mod-php8.1 php8.1-common php8.1-ldap php8.1-zip php8.1-imap php8.1-intl php8.1-mbstring php8.1-mysql php8.1-pgsql php8.1-xml php8.1-gd php8.1-xmlrpc php8.1-curl php8.1-soap php8.1-sqlite3 php8.1-memcache php8.1-redis php8.1-imagick &> /dev/null
 
 echo 'Log permissions'
 sudo chmod -R 777 /var/log
@@ -33,29 +33,32 @@ sudo echo "Europe/Madrid" | sudo tee /etc/timezone  &> /dev/null
 sudo dpkg-reconfigure -f noninteractive tzdata &> /dev/null
 
 echo 'PHP Configuration'
-sudo sed -i '$ a\date.timezone = "Europe/Madrid"' "/etc/php/7.4/apache2/php.ini"
-sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/7.4/apache2/php.ini
+sudo sed -i '$ a\date.timezone = "Europe/Madrid"' "/etc/php/8.1/apache2/php.ini"
+sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/8.1/apache2/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 1024M/" /etc/php/8.1/apache2/php.ini
+sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/8.1/apache2/php.ini
+sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/8.1/apache2/php.ini
+sudo sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/8.1/apache2/php.ini
+sudo sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/8.1/apache2/php.ini
+sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/8.1/apache2/php.ini
+sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/8.1/apache2/php.ini
+sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/8.1/apache2/php.ini
+sudo sed -i "s/;max_input_vars = .*/max_input_vars = 6000/" /etc/php/8.1/apache2/php.ini
 
-sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/7.4/cli/php.ini
-sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.4/cli/php.ini
-sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/7.4/cli/php.ini
-sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.4/cli/php.ini
-sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/7.4/cli/php.ini
+sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/8.1/cli/php.ini
+sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/8.1/cli/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 1024M/" /etc/php/8.1/cli/php.ini
+sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/8.1/cli/php.ini
+sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/8.1/cli/php.ini
 # Next line is commented on cli to allow composer install
-#sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/7.4/cli/php.ini
-sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/7.4/cli/php.ini
-sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/7.4/cli/php.ini
+#sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/8.1/cli/php.ini
+sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/8.1/cli/php.ini
+sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/8.1/cli/php.ini
+sudo sed -i "s/;max_input_vars = .*/max_input_vars = 6000/" /etc/php/8.1/cli/php.ini
 
-sudo sed -i "s/www-data/ubuntu/g" /etc/apache2/envvars
-sudo sed -i "s/www-data/ubuntu/g" /etc/apache2/envvars
+# Make apache to be run by user vagrant.
+sudo sed -i "s/www-data/vagrant/g" /etc/apache2/envvars
+sudo sed -i "s/www-data/vagrant/g" /etc/apache2/envvars
 
 sudo service apache2 restart
 
@@ -77,8 +80,8 @@ fi
 
 echo 'Configure MySQL'
 export DEBIAN_FRONTEND="noninteractive"
-sudo debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password password $pass"
-sudo debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password_again password $pass"
+sudo debconf-set-selections <<< "mysql-server-8.0 mysql-server/root_password password $pass"
+sudo debconf-set-selections <<< "mysql-server-8.0 mysql-server/root_password_again password $pass"
 
 sudo apt-get update &> /dev/null
 
