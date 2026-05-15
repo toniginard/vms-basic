@@ -15,8 +15,8 @@ sudo apt-get autoremove -y  &> /dev/null
 echo 'Install base packages'
 sudo apt-get install -y ghostscript imagemagick vsftpd openssl zip unzip &> /dev/null
 
-echo 'Install PHP 8.4'
-sudo apt-get install -y libapache2-mod-php8.4 php8.4-common php8.4-ldap php8.4-zip php8.4-imap php8.4-intl php8.4-mbstring php8.4-mysql php8.4-pgsql php8.4-xml php8.4-gd php8.4-xmlrpc php8.4-curl php8.4-soap php8.4-sqlite3 php8.4-redis php-imagick &> /dev/null
+echo 'Install PHP 8.5'
+sudo apt-get install -y libapache2-mod-php8.5 php8.5-common php8.5-ldap php8.5-zip php8.5-imap php8.5-intl php8.5-mbstring php8.5-mysql php8.5-pgsql php8.5-xml php8.5-gd php8.5-xmlrpc php8.5-curl php8.5-soap php8.5-sqlite3 php8.5-redis php-imagick &> /dev/null
 
 echo 'Log permissions'
 sudo chmod -R 777 /var/log
@@ -33,28 +33,28 @@ sudo echo "Europe/Madrid" | sudo tee /etc/timezone  &> /dev/null
 sudo dpkg-reconfigure -f noninteractive tzdata &> /dev/null
 
 echo 'PHP Configuration'
-sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/8.4/apache2/php.ini
-sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/8.4/apache2/php.ini
-sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/8.4/apache2/php.ini
-sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/8.4/apache2/php.ini
-sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/8.4/apache2/php.ini
-sudo sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/8.4/apache2/php.ini
-sudo sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/8.4/apache2/php.ini
-sudo sed -i "s/;max_input_vars = .*/max_input_vars = 6000/" /etc/php/8.4/apache2/php.ini
-sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/8.4/apache2/php.ini
-sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/8.4/apache2/php.ini
-sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/8.4/apache2/php.ini
+sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/8.5/apache2/php.ini
+sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/8.5/apache2/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/8.5/apache2/php.ini
+sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/8.5/apache2/php.ini
+sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/8.5/apache2/php.ini
+sudo sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/8.5/apache2/php.ini
+sudo sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/8.5/apache2/php.ini
+sudo sed -i "s/;max_input_vars = .*/max_input_vars = 6000/" /etc/php/8.5/apache2/php.ini
+sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/8.5/apache2/php.ini
+sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/8.5/apache2/php.ini
+sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/8.5/apache2/php.ini
 
-sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/8.4/cli/php.ini
-sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/8.4/cli/php.ini
-sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/8.4/cli/php.ini
-sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/8.4/cli/php.ini
-sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/8.4/cli/php.ini
+sudo sed -i '$ a\date.timezone = "Europe/Madrid"' /etc/php/8.5/cli/php.ini
+sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/8.5/cli/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 256M/" /etc/php/8.5/cli/php.ini
+sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/8.5/cli/php.ini
+sudo sed -i "s/display_startup_errors = .*/display_startup_errors = On/" /etc/php/8.5/cli/php.ini
 # Next line is commented on cli to allow composer install
-#sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/8.4/cli/php.ini
-sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/8.4/cli/php.ini
-sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/8.4/cli/php.ini
-sudo sed -i "s/;max_input_vars = .*/max_input_vars = 6000/" /etc/php/8.4/cli/php.ini
+#sudo sed -i "s/allow_url_fopen = .*/allow_url_fopen = Off/" /etc/php/8.5/cli/php.ini
+sudo sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/8.5/cli/php.ini
+sudo sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/8.5/cli/php.ini
+sudo sed -i "s/;max_input_vars = .*/max_input_vars = 6000/" /etc/php/8.5/cli/php.ini
 
 # Log
 sudo sed -i "s/create 640.*/create 777 vagrant vagrant/" /etc/logrotate.d/apache2
