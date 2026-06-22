@@ -92,8 +92,22 @@ sudo debconf-set-selections <<< "mysql-server-8.0 mysql-server/root_password_aga
 
 sudo apt-get update &> /dev/null
 
-echo 'Install MySQL server 8.0'
-sudo apt-get install -y mysql-server-8.0 &> /dev/null
+#echo 'Install MySQL server 8.0'
+#sudo apt-get install -y mysql-server-8.0 &> /dev/null
+
+echo 'Install MySQL server 8.4'
+sudo apt install wget gnupg -y &> /dev/null
+pushd /tmp &> /dev/null || exit
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.39-1_all.deb &> /dev/null
+echo "mysql-apt-config mysql-apt-config/select-server select mysql-8.4-lts" | sudo debconf-set-selections
+echo "mysql-apt-config mysql-apt-config/select-product select Ok" | sudo debconf-set-selections
+sudo -E dpkg -i --force-confold mysql-apt-config_0.8.39-1_all.deb &> /dev/null
+sudo -E apt update &> /dev/null
+echo "mysql-community-server mysql-community-server/root-pass password $pass" | sudo debconf-set-selections
+echo "mysql-community-server mysql-community-server/re-root-pass password $pass" | sudo debconf-set-selections
+echo "mysql-community-server mysql-community-server/authentication-method select Use Strong Password Encryption (RECOMMENDED)" | sudo debconf-set-selections
+sudo -E apt-get install -y mysql-server &> /dev/null
+popd &> /dev/null || exit
 
 sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
 sudo sed -i 's/\[mysqld\]/\[mysqld\]\nwait_timeout = 100\nmax_connections=500/g' /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -115,7 +129,7 @@ sudo sed -i '/<\/VirtualHost>/i \    Alias /phpmyadmin /var/www/phpmyadmin\n\n  
 
 sudo service apache2 restart
 
-echo 'Install postgreSQL'
-sudo apt-get install -y postgresql postgresql-contrib &> /dev/null
+#echo 'Install postgreSQL'
+#sudo apt-get install -y postgresql postgresql-contrib &> /dev/null
 
 echo 'Process completed successfully'
